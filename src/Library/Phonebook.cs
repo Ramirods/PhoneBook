@@ -47,15 +47,16 @@ namespace Library
         }
 
         //Enviar un mensaje a contactos dados sus nombres a través de un canal
-        public void Send(string[] names, Message message, IMessageChannel chanel)
+       public void Send (string [] names, IMessage channel, string text)
         {
+
             List<Contact> contacts = this.Search(names);
 
-            foreach (Contact contact in contacts)
-            {
-                Console.WriteLine($"Sending message to {contact.Name}...");
-                chanel.Send(message, contact);
-            }
+            foreach (Contact person in contacts)
+           {
+                Message message = channel.GetMessage(person, text);
+                channel.Send(message);
+           }
         }
     }
 }
